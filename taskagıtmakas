@@ -1,0 +1,51 @@
+import random
+
+def tas_kagit_makas_ADINIZ_SOYADINIZ():
+    print("Taş, Kağıt, Makas oyununa hoş geldiniz!")
+    print("Oyunun kuralları basit:")
+    print("Taş makası yener, makas kağıdı yener, kağıt taşı yener.")
+    print("İlk iki turu kazanan oyunun galibi olur.")
+    print("Oyundan çıkmak için 'çıkış' yazabilirsiniz.")
+
+    secenekler = ["taş", "kağıt", "makas"]
+    
+    while True:
+        oyuncu_galibiyetleri = 0
+        bilgisayar_galibiyetleri = 0
+        
+        while oyuncu_galibiyetleri < 2 and bilgisayar_galibiyetleri < 2:
+            oyuncu_secimi = input("Lütfen seçiminizi yapın (taş, kağıt, makas): ").lower()
+
+            if oyuncu_secimi == "çıkış":
+                print("Oyundan çıkılıyor...")
+                return
+
+            if oyuncu_secimi not in secenekler:
+                print("Geçersiz bir seçim yaptınız, lütfen tekrar deneyin.")
+                continue
+
+            bilgisayar_secimi = random.choice(secenekler)
+            print(f"Bilgisayarın seçimi: {bilgisayar_secimi}")
+
+            if oyuncu_secimi == bilgisayar_secimi:
+                print("Bu tur berabere!")
+            elif (oyuncu_secimi == "taş" and bilgisayar_secimi == "makas") or \
+                 (oyuncu_secimi == "makas" and bilgisayar_secimi == "kağıt") or \
+                 (oyuncu_secimi == "kağıt" and bilgisayar_secimi == "taş"):
+                print("Bu turu siz kazandınız!")
+                oyuncu_galibiyetleri += 1
+            else:
+                print("Bu turu bilgisayar kazandı!")
+                bilgisayar_galibiyetleri += 1
+
+            print(f"Durum - Siz: {oyuncu_galibiyetleri}, Bilgisayar: {bilgisayar_galibiyetleri}")
+
+        if oyuncu_galibiyetleri == 2:
+            print("Tebrikler! Oyunu kazandınız!")
+        else:
+            print("Üzgünüm, bilgisayar oyunu kazandı.")
+
+        devam = input("Oyuna devam etmek ister misiniz? (evet/hayır): ").lower()
+        if devam != "evet":
+            print("Oyunu bitirdiniz, hoşça kalın!")
+            break
